@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi cuenta — Polux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="dash-topbar">
+  <span class="logo-text">POLUX</span>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <a href="index.html" class="btn btn-ghost">Volver al sitio</a>
+    <a href="admin.html" class="btn btn-ghost" id="adminLink" style="display:none;">Panel admin</a>
+    <button type="button" class="btn btn-ghost" id="logoutBtn">Cerrar sesión</button>
+  </div>
+</div>
+
+<div class="dash-section" id="dashContent" style="display:none;">
+  <div class="eyebrow">Mi cuenta</div>
+  <h2 class="section-title" id="welcomeName" style="font-size:clamp(1.8rem, 4vw, 2.4rem);">¡Hola!</h2>
+  <p class="section-sub" style="margin-bottom:36px;">Acá podés ver y actualizar tus datos de usuario.</p>
+
+  <form class="card" id="profileForm">
+    <div class="field-row">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="pEmail" disabled>
+      </div>
+      <div class="field">
+        <label for="pPhone">Teléfono</label>
+        <input type="tel" id="pPhone" placeholder="+54 9 351 000-0000">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="pBrand">¿Dónde entrenás?</label>
+        <select id="pBrand">
+          <option value="">Sin definir</option>
+          <option value="gym">Polux Gym</option>
+          <option value="kine">Polux Kine</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pPlan">Plan / motivo</label>
+        <input type="text" id="pPlan" placeholder="Ej: Plan mensual">
+      </div>
+    </div>
+    <div class="field">
+      <label for="pTrainer">Profesor / kinesiólogo asignado</label>
+      <input type="text" id="pTrainer" placeholder="Ej: Jerónimo Aramayo">
+    </div>
+    <div class="auth-error" id="profileError"></div>
+    <button type="submit" class="btn btn-primary btn-block" id="profileSubmit">Guardar cambios</button>
+    <div class="form-success" id="profileSuccess">✓ Tus datos se guardaron correctamente.</div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  (function () {
+    "use strict";
+
+    var currentProfile = null;
+
+    document.getElementById("logoutBtn").addEventListener("click", poluxSignOut);
+
+    function fillForm(profile) {
+      document.getElementById("welcomeName").textContent = "¡Hola, " + (profile.full_name || "usuario/a") + "!";
+      if (profile.role === "admin") {
+        document.getElementById("adminLink").style.display = "inline-flex";
+      }
+      document.getElementById("pEmail").value = profile.email || "";
+      document.getElementById("pPhone").value = profile.phone || "";
+      document.getElementById("pBrand").value = profile.brand || "";
+      document.getElementById("pPlan").value = profile.plan || "";
+      document.getElementById("pTrainer").value = profile.preferred_trainer || "";
+    }
+
+    (async function init() {
+      if (!SUPABASE_CONFIGURED) {
+        document.body.innerHTML = '<div class="dash-section"><p class="empty-note">El sitio todavía no está conectado a la base de datos.</p></div>';
+        return;
+      }
+      currentProfile = await poluxRequireAuth();
+      if (!currentProfile) return;
+      fillForm(currentProfile);
+      document.getElementById("dashContent").style.display = "block";
+    })();
+
+    document.getElementById("profileForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var errorEl = document.getElementById("profileError");
+      var successEl = document.getElementById("profileSuccess");
+      errorEl.classList.remove("show");
+      successEl.classList.remove("show");
+
+      var submitBtn = document.getElementById("profileSubmit");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Guardando...";
+
+      var updates = {
+        phone: document.getElementById("pPhone").value,
+        brand: document.getElementById("pBrand").value || null,
+        plan: document.getElementById("pPlan").value,
+        preferred_trainer: document.getElementById("pTrainer").value
+      };
+
+      var { error } = await supabaseClient.from("profiles").update(updates).eq("id", currentProfile.id);
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Guardar cambios";
+
+      if (error) {
+        errorEl.textContent = "No se pudieron guardar los cambios. Probá de nuevo.";
+        errorEl.classList.add("show");
+      } else {
+        successEl.classList.add("show");
+        setTimeout(function () { successEl.classList.remove("show"); }, 4000);
+      }
+    });
+  })();
+</script>
+</body>
+</html>

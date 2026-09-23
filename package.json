@@ -1,0 +1,6 @@
+{
+  "name": "pulse-fitness",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Agency-grade static gym website with AI features, deployed on Vercel."
+}

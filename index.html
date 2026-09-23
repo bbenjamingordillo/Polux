@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polux — Gym &amp; Kine</title>
+<meta name="description" content="Polux: entrenamiento premium (Polux Gym) y rehabilitación / fisioterapia (Polux Kine), en un mismo lugar. Elegí tu experiencia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-mode="chooser">
+
+<!-- ============ NAV (compartida) ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo" id="navLogo" data-reset-chooser><img src="assets/images/logo.png" alt="Polux" style="height:42px; width:auto;"></a>
+    <ul class="nav-links" id="navLinks"></ul>
+    <div class="nav-cta">
+      <a href="login.html" class="btn btn-ghost" id="navAccountBtn">Mi cuenta</a>
+      <a href="#" class="btn btn-ghost" id="navGhostBtn"></a>
+      <a href="#" class="btn btn-primary" id="navPrimaryBtn"></a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ CHOOSER (pantalla de inicio) ============ -->
+<div class="chooser-screen" id="chooser">
+  <div class="chooser-logo-text">POLUX</div>
+  <div class="eyebrow" style="display:flex; margin:0 auto 10px; width:fit-content;">Bienvenido</div>
+  <h1 style="font-size:clamp(2.4rem, 6vw, 3.6rem); margin-bottom:10px;">ELEGÍ TU <span class="outline">EXPERIENCIA</span></h1>
+  <p style="color:var(--text-muted); max-width:480px; margin:0 auto;">Polux Gym y Polux Kine funcionan en el mismo lugar. Elegí qué querés ver primero — podés cambiar cuando quieras tocando el logo.</p>
+
+  <div class="chooser-cards">
+    <div class="chooser-card" data-select-mode="gym">
+      <div class="chooser-icon"><img src="assets/images/logo.png" alt="Polux Gym"></div>
+      <h3>Polux Gym</h3>
+      <p>Entrenamiento, clases grupales, planes de membresía y calculadora de IMC.</p>
+      <span class="btn btn-primary btn-block">Entrar a Polux Gym</span>
+    </div>
+    <div class="chooser-card" data-select-mode="kine">
+      <div class="chooser-icon"><img src="assets/images/logo-kine.jpg" alt="Polux Kine" style="border-radius:8px;"></div>
+      <h3>Polux Kine</h3>
+      <p>Rehabilitación, fisioterapia y kinesiología de todo tipo, con turnos personalizados.</p>
+      <span class="btn btn-primary btn-block">Entrar a Polux Kine</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ============ SITIO: POLUX GYM ============ -->
+<!-- ============================================================ -->
+<div id="siteGym" hidden>
+
+<header class="hero" id="inicio-gym">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="hero-wordmark">POLUX GYM</div>
+      <div class="eyebrow">Club premium · Cupos limitados</div>
+      <h1>ENTRENÁ <span class="outline">FUERTE</span><br>VIVÍ <span class="outline">MEJOR</span></h1>
+      <p>Entrenadores certificados, clases en grupo, planes 100% personalizados y una calculadora de IMC para arrancar con el pie derecho.</p>
+      <div class="hero-actions">
+        <a href="#calculadora" class="btn btn-primary">Calcular mi IMC →</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>2.400+</strong><span>Miembros activos</span></div>
+        <div><strong>18</strong><span>Entrenadores certificados</span></div>
+        <div><strong>9</strong><span>Años en el mercado</span></div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="assets/images/real-facade.webp" alt="Frente de Polux Gym, La Cordillera 4769, Córdoba" loading="eager">
+      <div class="hero-badge">
+        <div class="dot"></div>
+        <div>
+          <strong>¿Tenés dudas?</strong>
+          <span>Escribinos directo por WhatsApp, te respondemos al toque</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="trust-bar">
+  <div class="container">
+    <div><strong>4.9/5</strong><span>Calificación de socios</span></div>
+    <div><strong>1</strong><span>Sede en Córdoba Capital</span></div>
+    <div><strong>40+</strong><span>Clases semanales</span></div>
+    <div><strong>24/7</strong><span>Acceso con app</span></div>
+    <div><strong>100%</strong><span>Planes personalizados</span></div>
+  </div>
+</div>
+
+<!-- ============ CLASES ============ -->
+<section id="clases">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Nuestro método</div>
+    <h2 class="section-title">Clases para cada objetivo</h2>
+    <p class="section-sub">Desde fuerza y potencia hasta Pilates. Elegí tu ritmo, nosotros ponemos el plan — también contamos con asesoramiento nutricional.</p>
+    <div class="grid-3">
+      <div class="class-card reveal">
+        <img src="assets/images/real-floor1.webp" alt="Sala de entrenamiento de Polux Gym" loading="lazy">
+        <div class="overlay">
+          <span class="tag">Grupal</span>
+          <h3>Fitness funcional</h3>
+          <p>Circuitos de alta energía en grupos reducidos.</p>
+        </div>
+      </div>
+      <div class="class-card reveal">
+        <img src="assets/images/real-floor2.webp" alt="Sala de máquinas de Polux Gym" loading="lazy">
+        <div class="overlay">
+          <span class="tag">Fuerza</span>
+          <h3>Sala de máquinas</h3>
+          <p>Equipamiento premium y seguimiento de cargas.</p>
+        </div>
+      </div>
+      <div class="class-card reveal">
+        <img src="assets/images/real-pilates.webp" alt="Sala de Pilates de Polux Gym" loading="lazy">
+        <div class="overlay">
+          <span class="tag">Pilates</span>
+          <h3>Pilates reformer</h3>
+          <p>Clases guiadas para fuerza, postura y flexibilidad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROFESORES ============ -->
+<section id="profesores">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Profesores</div>
+    <h2 class="section-title">El equipo detrás de Polux Gym</h2>
+    <p class="section-sub">Somos un equipo de 5 profes certificados, con formación en fuerza, funcional, movilidad y Pilates (fotos de referencia — pronto sumamos las suyas).</p>
+    <div class="grid-5">
+      <div class="trainer-card reveal">
+        <div class="trainer-photo"><img src="assets/images/trainer.jpg" alt="Entrenador personal" loading="lazy"></div>
+        <h3>Jerónimo Aramayo</h3>
+        <div class="trainer-role">Fuerza &amp; potencia</div>
+        <div class="trainer-rating">★★★★☆<span>4.8</span></div>
+        <p class="bio">Formación en entrenamiento de fuerza para todos los niveles.</p>
+        <button type="button" class="btn btn-ghost btn-block trainer-request" data-request-trainer="Jerónimo Aramayo">Solicitar plan</button>
+      </div>
+      <div class="trainer-card reveal">
+        <div class="trainer-photo"><img src="assets/images/hero.jpg" alt="Entrenador de fuerza funcional" loading="lazy"></div>
+        <h3>Franco Vaccari</h3>
+        <div class="trainer-role">Funcional &amp; CrossFit</div>
+        <div class="trainer-rating">★★★★☆<span>4.9</span></div>
+        <p class="bio">Acompaña los circuitos grupales de alta intensidad.</p>
+        <button type="button" class="btn btn-ghost btn-block trainer-request" data-request-trainer="Franco Vaccari">Solicitar plan</button>
+      </div>
+      <div class="trainer-card reveal">
+        <div class="trainer-photo"><img src="assets/images/trainer6.jpg" alt="Instructor de movilidad" loading="lazy"></div>
+        <h3>Julián Guida</h3>
+        <div class="trainer-role">Movilidad &amp; recuperación</div>
+        <div class="trainer-rating">★★★★☆<span>4.7</span></div>
+        <p class="bio">Certificado en prevención de lesiones.</p>
+        <button type="button" class="btn btn-ghost btn-block trainer-request" data-request-trainer="Julián Guida">Solicitar plan</button>
+      </div>
+      <div class="trainer-card reveal">
+        <div class="trainer-photo"><img src="assets/images/trainer2.jpg" alt="Instructora de Pilates" loading="lazy"></div>
+        <h3>Oriana Suárez</h3>
+        <div class="trainer-role">Pilates reformer</div>
+        <div class="trainer-rating">★★★★★<span>5.0</span></div>
+        <p class="bio">A cargo de las clases de Pilates de Polux Gym.</p>
+        <button type="button" class="btn btn-ghost btn-block trainer-request" data-request-trainer="Oriana Suárez">Solicitar plan</button>
+      </div>
+      <div class="trainer-card reveal">
+        <div class="trainer-photo"><img src="assets/images/trainer5.jpg" alt="Instructora de fitness funcional" loading="lazy"></div>
+        <h3>Pía Seifer</h3>
+        <div class="trainer-role">Fitness funcional</div>
+        <div class="trainer-rating">★★★★☆<span>4.9</span></div>
+        <p class="bio">Acompaña las clases grupales de fitness funcional.</p>
+        <button type="button" class="btn btn-ghost btn-block trainer-request" data-request-trainer="Pía Seifer">Solicitar plan</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NUTRICIÓN ============ -->
+<section id="nutricion" style="background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Nutrición</div>
+    <h2 class="section-title">Sumá seguimiento nutricional</h2>
+    <p class="section-sub">Dentro de Polux Gym también contás con asesoramiento nutricional personalizado.</p>
+    <div class="nutri-card reveal" id="fiorella">
+      <div class="nutri-photo"><img src="assets/images/trainer7.jpg" alt="Fiorella, nutricionista de Polux Gym" loading="lazy"></div>
+      <div class="nutri-content">
+        <h3 style="font-size:1.5rem; margin-bottom:4px;">Fiorella</h3>
+        <div class="trainer-role">Nutricionista</div>
+        <div class="trainer-rating">★★★★★<span>4.9</span></div>
+        <p style="color:var(--text-muted); font-size:0.95rem; margin:12px 0 20px;">Fiorella arma planes de alimentación a medida de tu objetivo — bajar grasa, ganar masa muscular o simplemente comer mejor. Se coordina directamente con tu entrenador para que el plan de nutrición y el de entrenamiento vayan de la mano.</p>
+        <a href="#contacto-gym" class="btn btn-primary">Quiero mi consulta</a>
+      </div>
+    </div>
+
+    <div id="calculadora" style="margin-top:64px;">
+      <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Herramienta con IA</div>
+      <h3 class="section-title" style="font-size:clamp(1.8rem, 4vw, 2.6rem);">Calculá tu IMC en 10 segundos</h3>
+      <p class="section-sub">Completá tu peso y altura y la calculadora estima tu Índice de Masa Corporal y tu rango de peso saludable.</p>
+
+    <div class="calc-wrap reveal">
+      <form class="calc-form" id="calcForm">
+        <div class="field-row">
+          <div class="field">
+            <label for="calcWeight">Peso (kg)</label>
+            <input type="number" id="calcWeight" min="35" max="250" value="75" required>
+          </div>
+          <div class="field">
+            <label for="calcHeight">Altura (cm)</label>
+            <input type="number" id="calcHeight" min="120" max="230" value="172" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Calcular mi IMC</button>
+      </form>
+
+      <div class="calc-result">
+        <div class="result-placeholder" id="calcPlaceholder">
+          <h3 style="font-size:1.3rem;">Tu resultado aparece acá</h3>
+          <p>Completá tu peso y altura para ver tu IMC, tu categoría y tu rango de peso saludable estimado.</p>
+        </div>
+        <div class="result-card" id="calcResultCard">
+          <div class="result-stat"><span class="label">Tu IMC</span><span class="value" id="resTdee">—</span></div>
+
+          <div class="bmi-gauge">
+            <div class="bmi-gauge-bar">
+              <span class="bmi-seg bmi-seg-low"></span>
+              <span class="bmi-seg bmi-seg-normal"></span>
+              <span class="bmi-seg bmi-seg-over"></span>
+              <span class="bmi-seg bmi-seg-obese"></span>
+              <div class="bmi-marker" id="bmiMarker"></div>
+            </div>
+            <div class="bmi-gauge-labels">
+              <span>Bajo peso</span><span>Normal</span><span>Sobrepeso</span><span>Obesidad</span>
+            </div>
+          </div>
+
+          <div class="result-stat"><span class="label">Categoría</span><span class="value" id="resProtein">—</span></div>
+          <div class="result-stat"><span class="label">Rango de peso saludable</span><span class="value" id="resCarbs">—</span></div>
+          <div class="result-note"><strong>Diagnóstico:</strong> <span id="resNote">—</span></div>
+
+          <a href="#fiorella" class="btn btn-primary btn-block" style="margin-top:18px;">Consultá con Fiorella, nuestra nutricionista →</a>
+
+          <div class="ai-badge">✦ Estimación generada con IA — no reemplaza asesoría médica</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLANES ============ -->
+<section id="planes" style="background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Membresías</div>
+    <h2 class="section-title">Elegí tu compromiso</h2>
+    <p class="section-sub">Elegí la duración que mejor se adapte a vos. Sin letra chica.</p>
+    <div class="grid-4">
+      <div class="card price-card reveal">
+        <h3>Mensual</h3>
+        <div class="price">$55.000<span>/mes</span></div>
+        <ul>
+          <li>Acceso ilimitado 24/7</li>
+          <li>Clases grupales ilimitadas</li>
+          <li>Calculadora de IMC ilimitada</li>
+          <li>Cancelás cuando quieras</li>
+        </ul>
+        <a href="#contacto-gym" class="btn btn-ghost btn-block">Elegir Mensual</a>
+      </div>
+      <div class="card price-card reveal">
+        <h3>Trimestral</h3>
+        <div class="price">$130.000<span>/3 meses</span></div>
+        <ul>
+          <li>Todo lo del plan Mensual</li>
+          <li>1 sesión con entrenador</li>
+          <li>Asesoramiento nutricional</li>
+        </ul>
+        <a href="#contacto-gym" class="btn btn-ghost btn-block">Elegir Trimestral</a>
+      </div>
+      <div class="card price-card featured reveal">
+        <div class="badge-pop">Más elegido</div>
+        <h3>Semestral</h3>
+        <div class="price">$230.000<span>/6 meses</span></div>
+        <ul>
+          <li>Todo lo del plan Trimestral</li>
+          <li>2 sesiones mensuales con entrenador</li>
+          <li>Plan de nutrición a medida con Fiorella</li>
+        </ul>
+        <a href="#contacto-gym" class="btn btn-primary btn-block">Elegir Semestral</a>
+      </div>
+      <div class="card price-card reveal">
+        <h3>Anual</h3>
+        <div class="price">$500.000<span>/12 meses</span></div>
+        <ul>
+          <li>Todo lo del plan Semestral</li>
+          <li>Acceso a todas las clases, incluido Pilates</li>
+          <li>15% off en sesiones de Polux Kine</li>
+        </ul>
+        <a href="#contacto-gym" class="btn btn-ghost btn-block">Elegir Anual</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section id="testimonios-gym">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Testimonios</div>
+    <h2 class="section-title">Resultados reales</h2>
+    <p class="section-sub">Lo que dicen nuestros socios después de entrenar con nosotros.</p>
+    <div class="grid-3">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Con la ayuda de Fiorella y mi plan de entrenamiento bajé de peso de forma sostenible. Por fin encontré algo que puedo mantener."</p>
+        <div class="testimonial-who">
+          <div class="avatar">L</div>
+          <div><strong>Lucía Romero</strong><span>Socia desde 2024</span></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Escribís por WhatsApp y te responden al toque. Se siente un servicio premium de verdad."</p>
+        <div class="testimonial-who">
+          <div class="avatar">D</div>
+          <div><strong>Diego Paredes</strong><span>Socio plan Anual</span></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Entrenadores excelentes y la app hace que sea muy fácil reservar clases. Vale cada peso."</p>
+        <div class="testimonial-who">
+          <div class="avatar">S</div>
+          <div><strong>Sofía Guzmán</strong><span>Socia desde 2023</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERÍA ============ -->
+<section id="galeria" style="background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Instalaciones</div>
+    <h2 class="section-title">Conocé el club</h2>
+    <p class="section-sub">Espacios y máquinas diseñados para entrenar cómodo y motivado.</p>
+    <div class="gallery-grid reveal">
+      <a href="assets/images/real-facade.webp" target="_blank" rel="noopener"><img src="assets/images/real-facade.webp" alt="Frente de Polux Gym" loading="lazy"></a>
+      <a href="assets/images/real-reception.webp" target="_blank" rel="noopener"><img src="assets/images/real-reception.webp" alt="Recepción de Polux Gym" loading="lazy"></a>
+      <a href="assets/images/real-floor1.webp" target="_blank" rel="noopener"><img src="assets/images/real-floor1.webp" alt="Sala de entrenamiento" loading="lazy"></a>
+      <a href="assets/images/real-floor2.webp" target="_blank" rel="noopener"><img src="assets/images/real-floor2.webp" alt="Sala de máquinas y pesas libres" loading="lazy"></a>
+      <a href="assets/images/real-pilates.webp" target="_blank" rel="noopener"><img src="assets/images/real-pilates.webp" alt="Sala de Pilates" loading="lazy"></a>
+    </div>
+
+    <div class="history-bubbles">
+      <div class="history-bubble reveal">
+        <span class="year">2016</span>
+        <p>Abrimos las puertas de Polux Gym en La Cordillera 4769, Córdoba Capital, con el objetivo de acompañar a cada socio de forma personalizada.</p>
+      </div>
+      <div class="history-bubble reveal">
+        <span class="year">2021</span>
+        <p>Nace Polux Kine, nuestra área de kinesiología y rehabilitación, en la misma sede.</p>
+      </div>
+      <div class="history-bubble reveal">
+        <span class="year">Hoy</span>
+        <p>Más de 2.400 socios activos y un equipo de profesionales certificados (cifra de ejemplo).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO / LEAD CAPTURE ============ -->
+<section id="contacto-gym" style="background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Empezá hoy</div>
+    <h2 class="section-title">Hacé tu consulta</h2>
+    <p class="section-sub">Dejanos tus datos y un asesor te contacta en menos de 24 horas.</p>
+
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <div class="card reveal">
+          <strong>📍 Nuestra sede</strong>
+          <span>La Cordillera 4769, Córdoba Capital</span>
+        </div>
+        <div class="card reveal">
+          <strong>📞 Teléfono / WhatsApp</strong>
+          <span>0351 875-1118</span>
+        </div>
+        <div class="card reveal">
+          <strong>✉️ Email</strong>
+          <span>hola@poluxgym.com</span>
+        </div>
+        <div class="card reveal">
+          <strong>🕑 Horario</strong>
+          <span>Lun a Vie 7:00–22:00 · Sáb 9:00–13:00 · Dom cerrado</span>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" data-lead-form>
+        <div class="field-row">
+          <div class="field">
+            <label for="leadName">Nombre</label>
+            <input type="text" id="leadName" name="name" required placeholder="Tu nombre">
+          </div>
+          <div class="field">
+            <label for="leadPhone">Teléfono</label>
+            <input type="tel" id="leadPhone" name="phone" required placeholder="+1 555 000 0000">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="leadGoal">¿Cuál es tu objetivo?</label>
+            <select id="leadGoal" name="goal">
+              <option>Bajar de peso</option>
+              <option>Ganar masa muscular</option>
+              <option>Mejorar mi condición física</option>
+              <option>Asesoramiento nutricional</option>
+              <option>Rehabilitación / movilidad</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="leadTrainer">PROFESOR</label>
+            <select id="leadTrainer" name="trainer">
+              <option value="">Sin preferencia</option>
+              <optgroup label="Polux Gym">
+                <option>Jerónimo Aramayo</option>
+                <option>Franco Vaccari</option>
+                <option>Julián Guida</option>
+                <option>Oriana Suárez</option>
+                <option>Pía Seifer</option>
+              </optgroup>
+              <optgroup label="Nutrición">
+                <option>Fiorella</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="leadMsg">Mensaje (opcional)</label>
+          <textarea id="leadMsg" name="message" rows="3" placeholder="Contanos más sobre lo que buscás..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">CONSULTAR</button>
+        <div class="form-success">✓ ¡Gracias! Te vamos a contactar muy pronto.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/images/logo.png" alt="Polux Gym" style="height:56px; width:auto; margin-bottom:14px;">
+        <p style="color:var(--text-muted); font-size:0.88rem; max-width:280px;">Club de entrenamiento premium. Conocé también <a href="#" data-switch-mode="kine" style="color:var(--accent); text-decoration:underline;">Polux Kine</a>, nuestra área de rehabilitación.</p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#clases">Clases</a></li>
+          <li><a href="#profesores">Profesores</a></li>
+          <li><a href="#planes">Planes</a></li>
+          <li><a href="#contacto-gym">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Términos y condiciones</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Seguinos</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Polux Gym. Sitio de demostración — plantilla de agencia.</span>
+      <span>Fotos vía <a href="https://openverse.org" target="_blank" rel="noopener">Openverse</a> — ver créditos en <a href="assets/images/ATTRIBUTION.json" target="_blank" rel="noopener">ATTRIBUTION.json</a></span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /#siteGym -->
+
+<!-- ============================================================ -->
+<!-- ============ SITIO: POLUX KINE ============ -->
+<!-- ============================================================ -->
+<div id="siteKine" hidden>
+
+<header class="hero" id="inicio-kine">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="hero-wordmark">POLUX KINE</div>
+      <div class="eyebrow">Rehabilitación · Fisioterapia · Kinesiología</div>
+      <h1>RECUPERATE <span class="outline">MEJOR</span><br>VOLVÉ <span class="outline">MÁS FUERTE</span></h1>
+      <p>Dentro de Polux Gym, nuestro equipo de kinesiólogos y fisioterapeutas te acompaña en la rehabilitación de lesiones deportivas, postoperatorias y de la vida diaria.</p>
+      <div class="hero-actions">
+        <a href="#contacto-kine" class="btn btn-primary">Reservar un turno</a>
+        <a href="#servicios" class="btn btn-ghost">Ver servicios →</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>500+</strong><span>Pacientes recuperados</span></div>
+        <div><strong>8</strong><span>Kinesiólogos certificados</span></div>
+        <div><strong>6</strong><span>Años de experiencia</span></div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="assets/images/real-facade.webp" alt="Entrada de Polux Kine, dentro de Polux Gym" loading="eager">
+      <div class="hero-badge">
+        <div class="dot"></div>
+        <div>
+          <strong>¿Tenés una lesión?</strong>
+          <span>Escribinos por WhatsApp y te asesoramos sin cargo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="trust-bar">
+  <div class="container">
+    <div><strong>4.9/5</strong><span>Calificación de pacientes</span></div>
+    <div><strong>6</strong><span>Años de trayectoria</span></div>
+    <div><strong>+15</strong><span>Obras sociales aceptadas</span></div>
+    <div><strong>1</strong><span>Sede en Córdoba Capital</span></div>
+    <div><strong>100%</strong><span>Planes individualizados</span></div>
+  </div>
+</div>
+
+<section id="servicios">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Qué tratamos</div>
+    <h2 class="section-title">Rehabilitación de todo tipo</h2>
+    <p class="section-sub">Desde una lesión deportiva hasta una recuperación post-quirúrgica: armamos un plan a medida de tu proceso.</p>
+    <div class="grid-3">
+      <div class="card reveal">
+        <div class="icon-circle">🏃</div>
+        <h3 style="font-size:1.15rem;">Rehabilitación deportiva</h3>
+        <p style="color:var(--text-muted); font-size:0.88rem;">Esguinces, desgarros y lesiones musculares para volver a entrenar sin miedo.</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon-circle">🦴</div>
+        <h3 style="font-size:1.15rem;">Kinesiología traumatológica</h3>
+        <p style="color:var(--text-muted); font-size:0.88rem;">Recuperación de fracturas, esguinces y lesiones articulares.</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon-circle">🩹</div>
+        <h3 style="font-size:1.15rem;">Post-quirúrgica</h3>
+        <p style="color:var(--text-muted); font-size:0.88rem;">Planes de recuperación progresiva después de una cirugía.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="equipo" style="background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Nuestro equipo</div>
+    <h2 class="section-title">Profesionales que te acompañan</h2>
+    <p class="section-sub">Kinesiólogos matriculados, con formación en distintas especialidades (fotos de referencia — pronto sumamos las suyas):</p>
+    <div class="grid-3">
+      <div class="trainer-card reveal">
+        <div class="trainer-photo"><img src="assets/images/trainer.jpg" alt="Kinesiólogo deportivo" loading="lazy"></div>
+        <h3>Lic. Franco Seculín</h3>
+        <div class="trainer-role">Kinesiología deportiva</div>
+        <div class="trainer-rating">★★★★☆<span>4.9</span></div>
+        <p class="bio">Especialista en recuperación de lesiones de atletas amateur y federados.</p>
+      </div>
+      <div class="trainer-card reveal">
+        <div class="trainer-photo"><img src="assets/images/hero.jpg" alt="Kinesiólogo traumatológico" loading="lazy"></div>
+        <h3>Lic. Lucano Vaccari</h3>
+        <div class="trainer-role">Traumatología &amp; post-quirúrgico</div>
+        <div class="trainer-rating">★★★★☆<span>4.8</span></div>
+        <p class="bio">Acompaña procesos de recuperación post-operatoria.</p>
+      </div>
+      <div class="trainer-card reveal">
+        <div class="trainer-photo"><img src="assets/images/trainer6.jpg" alt="Kinesiólogo funcional" loading="lazy"></div>
+        <h3>Lic. Ramiro Bersa</h3>
+        <div class="trainer-role">Rehabilitación funcional</div>
+        <div class="trainer-rating">★★★★☆<span>4.7</span></div>
+        <p class="bio">Formado en reeducación del movimiento para pacientes de todas las edades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonios-kine">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Testimonios</div>
+    <h2 class="section-title">Historias de recuperación</h2>
+    <p class="section-sub">Lo que cuentan nuestros pacientes después del tratamiento.</p>
+    <div class="grid-2">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Llegué con una lesión de rodilla que me tenía sin poder correr. En 3 meses de trabajo con Franco volví a entrenar mejor que antes."</p>
+        <div class="testimonial-who">
+          <div class="avatar">R</div>
+          <div><strong>Rodrigo Peña</strong><span>Paciente, rehabilitación deportiva</span></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"El seguimiento post-quirúrgico fue increíble. Lucano me explicaba cada paso y siempre estuvo disponible por WhatsApp."</p>
+        <div class="testimonial-who">
+          <div class="avatar">M</div>
+          <div><strong>Marina Costa</strong><span>Paciente, post-quirúrgico</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto-kine" style="background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="eyebrow" style="display:flex; margin:0 auto 18px; width:fit-content;">Reservá tu turno</div>
+    <h2 class="section-title">Empecemos tu recuperación</h2>
+    <p class="section-sub">Contanos qué te pasa y un kinesiólogo te contacta en menos de 24 horas.</p>
+
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <div class="card reveal">
+          <strong>📍 Nuestra sede</strong>
+          <span>La Cordillera 4769, Córdoba Capital (dentro de Polux Gym)</span>
+        </div>
+        <div class="card reveal">
+          <strong>📞 Teléfono / WhatsApp</strong>
+          <span>+54 9 351 344-2856</span>
+        </div>
+        <div class="card reveal">
+          <strong>✉️ Email</strong>
+          <span>turnos@poluxkine.com</span>
+        </div>
+        <div class="card reveal">
+          <strong>🕑 Horario</strong>
+          <span>Lun a Vie 7:00–22:00 · Sáb 9:00–13:00 · Dom cerrado</span>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" data-lead-form>
+        <div class="field-row">
+          <div class="field">
+            <label for="leadNameKine">Nombre</label>
+            <input type="text" id="leadNameKine" name="name" required placeholder="Tu nombre">
+          </div>
+          <div class="field">
+            <label for="leadPhoneKine">Teléfono</label>
+            <input type="tel" id="leadPhoneKine" name="phone" required placeholder="+1 555 000 0000">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="leadGoalKine">Motivo de consulta</label>
+            <select id="leadGoalKine" name="goal">
+              <option>Rehabilitación deportiva</option>
+              <option>Recuperación post-quirúrgica</option>
+              <option>Dolor crónico</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="leadTrainerKine">PROFESOR</label>
+            <select id="leadTrainerKine" name="trainer">
+              <option value="">Sin preferencia</option>
+              <option>Lic. Franco Seculín</option>
+              <option>Lic. Lucano Vaccari</option>
+              <option>Lic. Ramiro Bersa</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="leadMsgKine">Contanos tu caso (opcional)</label>
+          <textarea id="leadMsgKine" name="message" rows="3" placeholder="Ej: dolor de rodilla hace 2 semanas..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Quiero mi turno</button>
+        <div class="form-success">✓ ¡Gracias! Te vamos a contactar muy pronto.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/images/logo-kine.jpg" alt="Polux Kine" style="height:56px; width:auto; margin-bottom:14px; border-radius:8px;">
+        <p style="color:var(--text-muted); font-size:0.88rem; max-width:280px;">Rehabilitación y fisioterapia dentro de Polux Gym. Volvé a <a href="#" data-switch-mode="gym" style="color:var(--accent); text-decoration:underline;">Polux Gym</a>.</p>
+      </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#contacto-kine">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Términos y condiciones</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Seguinos</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Polux Kine. Sitio de demostración — plantilla de agencia.</span>
+      <span>Fotos vía <a href="https://openverse.org" target="_blank" rel="noopener">Openverse</a> — ver créditos en <a href="assets/images/ATTRIBUTION.json" target="_blank" rel="noopener">ATTRIBUTION.json</a></span>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /#siteKine -->
+
+<!-- ============ WHATSAPP BUBBLE (compartido) ============ -->
+<a class="whatsapp-launcher" id="whatsappLauncher" href="#" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 0 1 2.42 5.82c0 4.55-3.7 8.25-8.25 8.25a8.3 8.3 0 0 1-4.2-1.14l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.4c0-4.55 3.7-8.24 8.26-8.24zm-4.55 4.72c-.16 0-.43.06-.65.31-.22.25-.86.84-.86 2.05s.88 2.38 1 2.55c.13.16 1.72 2.7 4.23 3.68 2.08.82 2.5.66 2.96.62.45-.04 1.46-.6 1.67-1.18s.21-1.08.14-1.18c-.06-.1-.22-.16-.47-.28s-1.46-.72-1.68-.8c-.23-.08-.4-.13-.56.13s-.64.8-.78.96c-.14.16-.29.18-.53.06-.25-.13-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.24-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.4-.78-1.9-.2-.5-.41-.43-.56-.44l-.48-.01z"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/calculator.js"></script>
+<script src="js/main.js"></script>
+<script src="js/brand-switch.js"></script>
+</body>
+</html>

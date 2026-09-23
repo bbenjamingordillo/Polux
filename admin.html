@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel admin — Polux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="dash-topbar">
+  <span class="logo-text">
+    <span class="notif-bell">🔔<span class="notif-badge" id="notifBadge" style="display:none;">0</span></span>
+    POLUX · ADMIN
+  </span>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <a href="index.html" class="btn btn-ghost">Volver al sitio</a>
+    <a href="dashboard.html" class="btn btn-ghost">Mi cuenta</a>
+    <button type="button" class="btn btn-ghost" id="logoutBtn">Cerrar sesión</button>
+  </div>
+</div>
+
+<div class="dash-section" id="adminContent" style="display:none; max-width:1100px;">
+  <div class="eyebrow">Panel de administración</div>
+  <h2 class="section-title" style="font-size:clamp(1.8rem, 4vw, 2.4rem);">Usuarios y consultas</h2>
+  <p class="section-sub" style="margin-bottom:36px;">Gestioná las cuentas registradas y las consultas que llegan desde el sitio.</p>
+
+  <h3 style="font-family:var(--font-display); margin-bottom:16px;">Usuarios registrados (<span id="profilesCount">0</span>)</h3>
+  <div class="admin-table-wrap">
+    <table class="admin-table" id="profilesTable">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Marca</th>
+          <th>Plan / motivo</th>
+          <th>Profesor</th>
+          <th>Rol</th>
+        </tr>
+      </thead>
+      <tbody id="profilesBody"></tbody>
+    </table>
+    <div class="empty-note" id="profilesEmpty" style="display:none;">Todavía no hay usuarios registrados.</div>
+  </div>
+
+  <h3 style="font-family:var(--font-display); margin-bottom:16px;">Consultas recibidas (<span id="leadsCount">0</span>)</h3>
+  <div id="leadsContainer"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  (function () {
+    "use strict";
+
+    var TRAINER_GROUPS = [
+      { name: "Jerónimo Aramayo", color: "#ff7a1a" },
+      { name: "Franco Vaccari", color: "#ff7a1a" },
+      { name: "Julián Guida", color: "#ff7a1a" },
+      { name: "Oriana Suárez", color: "#ff7a1a" },
+      { name: "Pía Seifer", color: "#ff7a1a" },
+      { name: "Fiorella", color: "#2ecc9a" },
+      { name: "Lic. Franco Seculín", color: "#22a6d9" },
+      { name: "Lic. Lucano Vaccari", color: "#22a6d9" },
+      { name: "Lic. Ramiro Bersa", color: "#22a6d9" }
+    ];
+
+    document.getElementById("logoutBtn").addEventListener("click", poluxSignOut);
+
+    function resetConfirmingButtons() {
+      document.querySelectorAll('.status-btn[data-confirming="1"]').forEach(function (b) {
+        b.dataset.confirming = "0";
+        b.textContent = b.dataset.originalText || "Resuelta";
+        b.classList.remove("confirming");
+      });
+    }
+
+    document.addEventListener("click", function (e) {
+      if (!e.target.classList || !e.target.classList.contains("status-btn")) {
+        resetConfirmingButtons();
+      }
+    });
+
+    function esc(str) {
+      var div = document.createElement("div");
+      div.textContent = str || "";
+      return div.innerHTML;
+    }
+
+    function fmtDate(iso) {
+      if (!iso) return "";
+      var d = new Date(iso);
+      return d.toLocaleDateString("es-AR") + " " + d.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    async function loadProfiles() {
+      var { data } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      var body = document.getElementById("profilesBody");
+      var rows = data || [];
+      document.getElementById("profilesCount").textContent = rows.length;
+      document.getElementById("profilesEmpty").style.display = rows.length ? "none" : "block";
+
+      body.innerHTML = rows.map(function (p) {
+        var brandLabel = p.brand === "gym" ? '<span class="brand-tag-gym">Polux Gym</span>' : p.brand === "kine" ? '<span class="brand-tag-kine">Polux Kine</span>' : "—";
+        return "<tr>" +
+          "<td>" + esc(p.full_name || "—") + "</td>" +
+          "<td>" + esc(p.email) + "</td>" +
+          "<td>" + esc(p.phone || "—") + "</td>" +
+          "<td>" + brandLabel + "</td>" +
+          "<td>" + esc(p.plan || "—") + "</td>" +
+          "<td>" + esc(p.preferred_trainer || "—") + "</td>" +
+          "<td>" +
+            '<select class="role-select" data-id="' + p.id + '" style="background:var(--bg); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:4px 8px; font-family:var(--font-body);">' +
+              '<option value="user"' + (p.role === "user" ? " selected" : "") + '>Usuario</option>' +
+              '<option value="admin"' + (p.role === "admin" ? " selected" : "") + '>Admin</option>' +
+            "</select>" +
+          "</td>" +
+        "</tr>";
+      }).join("");
+
+      document.querySelectorAll(".role-select").forEach(function (sel) {
+        sel.addEventListener("change", async function () {
+          await supabaseClient.from("profiles").update({ role: sel.value }).eq("id", sel.dataset.id);
+        });
+      });
+    }
+
+    function leadRowHtml(l) {
+      var isResolved = l.status === "resuelta";
+      return "<tr>" +
+        "<td>" + fmtDate(l.created_at) + "</td>" +
+        "<td>" + esc(l.name) + "</td>" +
+        "<td>" + esc(l.phone) + "</td>" +
+        "<td>" + esc(l.goal) + "</td>" +
+        "<td>" + esc(l.message || "—") + "</td>" +
+        "<td>" + esc(l.source) + "</td>" +
+        "<td><div class=\"status-toggle\">" +
+          '<button type="button" class="status-btn pendiente' + (!isResolved ? " active" : "") + '" data-id="' + l.id + '" data-status="pendiente">Pendiente</button>' +
+          '<button type="button" class="status-btn resuelta' + (isResolved ? " active" : "") + '" data-id="' + l.id + '" data-status="resuelta">Resuelta</button>' +
+        "</div></td>" +
+      "</tr>";
+    }
+
+    function sectionHtml(group) {
+      var pending = group.leads.filter(function (l) { return l.status !== "resuelta"; }).length;
+      return '<div class="lead-section">' +
+        '<div class="lead-section-header">' +
+          '<span class="lead-section-dot" style="background:' + group.color + '"></span>' +
+          '<span class="lead-section-title" style="color:' + group.color + '">' + esc(group.name) + "</span>" +
+          '<span class="lead-section-count">(' + group.leads.length + ")</span>" +
+          (pending > 0 ? '<span class="pending-pill">' + pending + " pendiente" + (pending > 1 ? "s" : "") + "</span>" : "") +
+        "</div>" +
+        '<div class="admin-table-wrap"><table class="admin-table"><thead><tr>' +
+          "<th>Fecha</th><th>Nombre</th><th>Teléfono</th><th>Objetivo</th><th>Mensaje</th><th>Origen</th><th>Estado</th>" +
+        "</tr></thead><tbody>" +
+        group.leads.map(leadRowHtml).join("") +
+        "</tbody></table></div>" +
+      "</div>";
+    }
+
+    async function loadLeads() {
+      var { data } = await supabaseClient
+        .from("leads")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      var rows = data || [];
+      document.getElementById("leadsCount").textContent = rows.length;
+
+      var totalPending = rows.filter(function (l) { return l.status !== "resuelta"; }).length;
+      var badge = document.getElementById("notifBadge");
+      badge.style.display = totalPending > 0 ? "inline-flex" : "none";
+      badge.textContent = totalPending;
+
+      var groups = TRAINER_GROUPS.map(function (g) {
+        return { name: g.name, color: g.color, leads: rows.filter(function (l) { return l.trainer === g.name; }) };
+      });
+      var known = TRAINER_GROUPS.map(function (g) { return g.name; });
+      var unassigned = rows.filter(function (l) { return !l.trainer || known.indexOf(l.trainer) === -1; });
+      groups.push({ name: "Sin profesor asignado", color: "#a8a29a", leads: unassigned });
+
+      var visible = groups.filter(function (g) { return g.leads.length > 0; });
+      var container = document.getElementById("leadsContainer");
+
+      if (!visible.length) {
+        container.innerHTML = '<div class="empty-note">Todavía no llegaron consultas.</div>';
+        return;
+      }
+
+      container.innerHTML = visible.map(sectionHtml).join("");
+
+      document.querySelectorAll(".status-btn").forEach(function (btn) {
+        btn.addEventListener("click", async function () {
+          if (btn.dataset.status === "resuelta") {
+            if (btn.dataset.confirming !== "1") {
+              resetConfirmingButtons();
+              btn.dataset.confirming = "1";
+              btn.dataset.originalText = btn.textContent;
+              btn.textContent = "¿Confirmar borrado?";
+              btn.classList.add("confirming");
+              return;
+            }
+            await supabaseClient.from("leads").delete().eq("id", btn.dataset.id);
+          } else {
+            await supabaseClient.from("leads").update({ status: btn.dataset.status }).eq("id", btn.dataset.id);
+          }
+          loadLeads();
+        });
+      });
+    }
+
+    (async function init() {
+      if (!SUPABASE_CONFIGURED) {
+        document.body.innerHTML = '<div class="dash-section"><p class="empty-note">El sitio todavía no está conectado a la base de datos.</p></div>';
+        return;
+      }
+      var profile = await poluxRequireAdmin();
+      if (!profile) return;
+
+      document.getElementById("adminContent").style.display = "block";
+      await Promise.all([loadProfiles(), loadLeads()]);
+    })();
+  })();
+</script>
+</body>
+</html>

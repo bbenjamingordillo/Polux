@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingresar — Polux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-logo">POLUX</div>
+
+    <div class="auth-tabs">
+      <button type="button" class="auth-tab active" data-tab="login">Iniciar sesión</button>
+      <button type="button" class="auth-tab" data-tab="signup">Crear cuenta</button>
+    </div>
+
+    <form class="auth-form active" id="loginForm" data-tab-panel="login">
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" required placeholder="tu@email.com">
+      </div>
+      <div class="field">
+        <label for="loginPassword">Contraseña</label>
+        <input type="password" id="loginPassword" required placeholder="••••••••">
+      </div>
+      <div class="auth-error" id="loginError"></div>
+      <button type="submit" class="btn btn-primary btn-block" id="loginSubmit">Ingresar</button>
+    </form>
+
+    <form class="auth-form" id="signupForm" data-tab-panel="signup">
+      <div class="field">
+        <label for="signupName">Nombre completo</label>
+        <input type="text" id="signupName" required placeholder="Tu nombre">
+      </div>
+      <div class="field">
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" required placeholder="tu@email.com">
+      </div>
+      <div class="field">
+        <label for="signupPassword">Contraseña</label>
+        <input type="password" id="signupPassword" required minlength="6" placeholder="Mínimo 6 caracteres">
+      </div>
+      <div class="auth-error" id="signupError"></div>
+      <button type="submit" class="btn btn-primary btn-block" id="signupSubmit">Crear mi cuenta</button>
+    </form>
+
+    <p class="auth-note">Volver al <a href="index.html">sitio</a>.</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  (function () {
+    "use strict";
+
+    var tabs = document.querySelectorAll(".auth-tab");
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        tabs.forEach(function (t) { t.classList.remove("active"); });
+        tab.classList.add("active");
+        document.querySelectorAll(".auth-form").forEach(function (form) {
+          form.classList.toggle("active", form.dataset.tabPanel === tab.dataset.tab);
+        });
+      });
+    });
+
+    function showError(el, message) {
+      el.textContent = message;
+      el.classList.add("show");
+    }
+    function hideError(el) {
+      el.classList.remove("show");
+    }
+
+    async function redirectByRole() {
+      var profile = await poluxGetProfile();
+      if (profile && profile.role === "admin") {
+        window.location.href = "admin.html";
+      } else {
+        window.location.href = "dashboard.html";
+      }
+    }
+
+    // Si ya hay una sesión activa, no mostrar el login de nuevo.
+    (async function () {
+      if (!SUPABASE_CONFIGURED) return;
+      var profile = await poluxGetProfile();
+      if (profile) redirectByRole();
+    })();
+
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var errorEl = document.getElementById("loginError");
+      hideError(errorEl);
+
+      if (!SUPABASE_CONFIGURED) {
+        showError(errorEl, "El sitio todavía no está conectado a la base de datos. Avisale a quien te armó la web.");
+        return;
+      }
+
+      var submitBtn = document.getElementById("loginSubmit");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Ingresando...";
+
+      try {
+        await poluxSignIn({
+          email: document.getElementById("loginEmail").value,
+          password: document.getElementById("loginPassword").value
+        });
+        await redirectByRole();
+      } catch (err) {
+        showError(errorEl, "Email o contraseña incorrectos.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Ingresar";
+      }
+    });
+
+    document.getElementById("signupForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var errorEl = document.getElementById("signupError");
+      hideError(errorEl);
+
+      if (!SUPABASE_CONFIGURED) {
+        showError(errorEl, "El sitio todavía no está conectado a la base de datos. Avisale a quien te armó la web.");
+        return;
+      }
+
+      var submitBtn = document.getElementById("signupSubmit");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creando cuenta...";
+
+      try {
+        var result = await poluxSignUp({
+          email: document.getElementById("signupEmail").value,
+          password: document.getElementById("signupPassword").value,
+          fullName: document.getElementById("signupName").value
+        });
+
+        if (result.session) {
+          // La confirmación por email está desactivada: ya se puede entrar.
+          await redirectByRole();
+        } else {
+          showError(errorEl, "¡Cuenta creada! Revisá tu email para confirmarla y después iniciá sesión.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Crear mi cuenta";
+        }
+      } catch (err) {
+        showError(errorEl, err.message === "User already registered" ? "Ese email ya tiene una cuenta." : "No se pudo crear la cuenta. Probá de nuevo.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Crear mi cuenta";
+      }
+    });
+  })();
+</script>
+</body>
+</html>
